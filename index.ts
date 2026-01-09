@@ -4,7 +4,6 @@ const app = express();
 const port = import.meta.env.PORT || 3000;
 
 app.get('/', (_, res) => {
-  console.log('this is a test');
   res.send('Hello, from Primcloud!');
 });
 
