@@ -2,9 +2,10 @@ import express from 'express';
 
 const app = express();
 const port = process.env.PORT || 3000;
+const greeting = process.env.GREETING || 'Hello';
 
 app.get('/', (_, res) => {
-  res.send('Hello, from Primcloud!');
+  res.send(`${greeting}, from Primcloud!`);
 });
 
 app.listen(port, () => {
