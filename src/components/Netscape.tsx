@@ -9,7 +9,7 @@ interface NetscapeProps {
 
 export const Netscape = ({ title, url, children }: NetscapeProps) => {
   return (
-    <div className="bg-retro-gray flex h-full w-full flex-col">
+    <div className="bg-retro-gray flex min-h-full w-full flex-1 flex-col">
       {/* Browser Chrome (sticky) */}
       <div className="border-retro-gray-dark bg-retro-gray sticky top-0 z-100 border-b-2">
         {/* Title Bar */}
