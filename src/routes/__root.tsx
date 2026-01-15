@@ -9,7 +9,7 @@ const getPageTitle = (pathname: string): string => {
 };
 
 const getPageUrl = (pathname: string): string => {
-  const base = 'http://hello-world.primcloud.app';
+  const base = 'https://hello-world.primcloud.app';
   if (pathname === '/') return `${base}/`;
   return `${base}${pathname}`;
 };
@@ -45,12 +45,12 @@ export const Route = createRootRoute({
       // Open Graph
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Hello World!' },
-      { property: 'og:image', content: 'http://hello-world.primcloud.app/og.png' },
+      { property: 'og:image', content: 'https://hello-world.primcloud.app/og.png' },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
       // Twitter Card
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'http://hello-world.primcloud.app/og.png' },
+      { name: 'twitter:image', content: 'https://hello-world.primcloud.app/og.png' },
       // Theme color
       { name: 'theme-color', content: '#c0c0c0' },
     ],
