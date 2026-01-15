@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Retro color palette */
+  --color-retro-gray: #c0c0c0;
+  --color-retro-gray-dark: #808080;
+  --color-retro-dark-blue: #000080;
+  --color-retro-light-blue: #1084d0;
+  --color-retro-purple: #330066;
+  --color-retro-dark-purple: #000033;
+  --color-retro-navy: #000066;
+  --color-retro-deep-navy: #000044;
+
+  /* Neon colors */
+  --color-neon-cyan: #00ffff;
+  --color-neon-yellow: #ffff00;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-green: #00ff00;
+  --color-neon-pink: #ff0080;
+  --color-neon-orange: #ff8000;
+
+  /* CTA colors */
+  --color-cta-purple-light: #660066;
+  --color-cta-purple-dark: #330033;
+  --color-cta-pink-light: #ff66ff;
+  --color-cta-pink: #ff00ff;
+  --color-cta-pink-dark: #cc00cc;
+  --color-cta-pink-darker: #990099;
+
+  /* Construction colors */
+  --color-construction-yellow: #ffcc00;
+
+  /* Fonts */
+  --font-comic: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  --font-system: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+
+  /* Custom animations */
+  --animate-rainbow: rainbow 3s linear infinite;
+  --animate-marquee: marquee 15s linear infinite;
+  --animate-bounce-hat: bounce-hat 0.5s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-glow: glow 1.5s ease-in-out infinite alternate;
+  --animate-pulse-scale: pulse-scale 1s ease-in-out infinite;
+  --animate-spin-globe: spin-globe 4s linear infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes rainbow {
+  0% {
+    filter: hue-rotate(0deg) drop-shadow(2px 2px 0 #000);
+  }
+  100% {
+    filter: hue-rotate(360deg) drop-shadow(2px 2px 0 #000);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes bounce-hat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 5px gold,
+      0 0 10px gold;
+  }
+  to {
+    text-shadow:
+      0 0 10px gold,
+      0 0 20px orange,
+      0 0 30px orange;
+  }
+}
+
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-globe {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}

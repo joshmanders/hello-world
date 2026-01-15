@@ -1,0 +1,56 @@
+{
+  "name": "hello-world",
+  "type": "module",
+  "private": true,
+  "prettier": "@aniftyco/prettier",
+  "engines": {
+    "node": "^25.0.0"
+  },
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "db:push": "drizzle-kit push",
+    "db:reset": "tsx src/db/reset.ts && drizzle-kit push",
+    "db:seed": "tsx src/db/seed.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:update-snapshots": "playwright test --update-snapshots"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.150.0",
+    "@tanstack/react-start": "^1.150.0",
+    "@tanstack/router-plugin": "^1.150.0",
+    "chokidar": "^3.6.0",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.1",
+    "lru-cache": "^5.1.1",
+    "nitro": "npm:nitro-nightly@^3.0.1-20260113-190618-a765d98d",
+    "pg": "^8.17.0",
+    "picomatch": "^4.0.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "readdirp": "^5.0.0",
+    "tailwind-merge": "^3.4.0",
+    "vite-tsconfig-paths": "^6.0.4",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@aniftyco/prettier": "^1.3.0",
+    "@faker-js/faker": "^10.2.0",
+    "@playwright/test": "^1.57.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^22.19.6",
+    "@types/pg": "^8.16.0",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.8",
+    "prettier": "^3.8.0",
+    "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

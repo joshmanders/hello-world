@@ -1,0 +1,106 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hello_world_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hello_world_test
+      PORT: "3000"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        id: tests
+        run: npm test
+        continue-on-error: true
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        id: report-artifact
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload screenshot diffs
+        uses: actions/upload-artifact@v4
+        id: diffs-artifact
+        if: steps.tests.outcome == 'failure'
+        with:
+          name: screenshot-diffs
+          path: test-results/
+          retention-days: 30
+
+      - name: Comment on PR (Success)
+        if: steps.tests.outcome == 'success'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: playwright-results
+          message: |
+            ## :white_check_mark: Tests Passed
+
+            All visual regression and E2E tests passed successfully.
+
+            **[View Full Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.report-artifact.outputs.artifact-id }})**
+
+            Download and extract the report, then open `index.html` to see all screenshots.
+
+            ---
+            *Last updated: ${{ github.event.pull_request.head.sha }}*
+
+      - name: Comment on PR (Failure)
+        if: steps.tests.outcome == 'failure'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: playwright-results
+          message: |
+            ## :x: Tests Failed
+
+            Visual regression or E2E tests have failed. Please review the differences.
+
+            | Artifact | Description |
+            |----------|-------------|
+            | **[Playwright Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.report-artifact.outputs.artifact-id }})** | Full HTML report with screenshots |
+            | **[Screenshot Diffs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.diffs-artifact.outputs.artifact-id }})** | Visual diff images showing changes |
+
+            Download and extract the report, then open `index.html` to view interactive screenshot comparisons.
+
+            ---
+            *Last updated: ${{ github.event.pull_request.head.sha }}*
+
+      - name: Fail if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1
