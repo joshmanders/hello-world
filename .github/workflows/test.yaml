@@ -70,6 +70,20 @@ jobs:
           path: test-results/
           retention-days: 30
 
+      - name: Generate updated snapshots
+        if: steps.tests.outcome == 'failure'
+        run: npx playwright test --update-snapshots --reporter=list
+        continue-on-error: true
+
+      - name: Upload updated snapshots
+        uses: actions/upload-artifact@v4
+        id: snapshots-artifact
+        if: steps.tests.outcome == 'failure'
+        with:
+          name: updated-snapshots
+          path: tests/**/*-snapshots/
+          retention-days: 30
+
       - name: Comment on PR (Success)
         if: steps.tests.outcome == 'success'
         uses: marocchino/sticky-pull-request-comment@v2
@@ -101,8 +115,11 @@ jobs:
             |----------|-------------|
             | **[Playwright Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.report-artifact.outputs.artifact-id }})** | Full HTML report with screenshots |
             | **[Screenshot Diffs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.diffs-artifact.outputs.artifact-id }})** | Visual diff images showing changes |
+            | **[Updated Snapshots](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.snapshots-artifact.outputs.artifact-id }})** | Linux-generated snapshots to commit |
 
             Download and extract the report, then open `index.html` to view interactive screenshot comparisons.
+
+            **To fix snapshot mismatches:** Download the "Updated Snapshots" artifact and extract to your `tests/` directory.
 
             ---
             *Last updated: ${{ github.event.pull_request.head.sha }}*
