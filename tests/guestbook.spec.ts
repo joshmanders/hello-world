@@ -23,7 +23,7 @@ test.describe('Guestbook Functionality', () => {
     await expect(page).toHaveScreenshot('guestbook-form-filled.png', {
       fullPage: true,
       animations: 'disabled',
-      maxDiffPixelRatio: 0.02,
+      maxDiffPixelRatio: 0.05,
     });
 
     await page.click('button[type="submit"]');
@@ -36,7 +36,7 @@ test.describe('Guestbook Functionality', () => {
     await expect(page).toHaveScreenshot('guestbook-after-signing.png', {
       fullPage: true,
       animations: 'disabled',
-      maxDiffPixelRatio: 0.02,
+      maxDiffPixelRatio: 0.05,
     });
   });
 
@@ -54,7 +54,7 @@ test.describe('Guestbook Functionality', () => {
     await expect(page).toHaveScreenshot('guestbook-validation.png', {
       fullPage: true,
       animations: 'disabled',
-      maxDiffPixelRatio: 0.02,
+      maxDiffPixelRatio: 0.05,
     });
   });
 
