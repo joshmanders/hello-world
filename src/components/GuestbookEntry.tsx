@@ -1,7 +1,10 @@
-import type { GuestbookEntry as GuestbookEntryType } from '@app/db/schema';
-
 interface GuestbookEntryProps {
-  entry: GuestbookEntryType;
+  entry: {
+    id: number;
+    name: string;
+    message: string;
+    signedAt: Date;
+  };
 }
 
 export const GuestbookEntry = ({ entry }: GuestbookEntryProps) => (

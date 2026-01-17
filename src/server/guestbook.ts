@@ -26,7 +26,12 @@ export const getEntries = createServerFn({ method: 'GET' })
 
     const [entries, totalResult] = await Promise.all([
       db
-        .select()
+        .select({
+          id: schema.guestbook.id,
+          name: schema.guestbook.name,
+          message: schema.guestbook.message,
+          signedAt: schema.guestbook.signedAt,
+        })
         .from(schema.guestbook)
         .orderBy(desc(schema.guestbook.signedAt))
         .limit(ENTRIES_PER_PAGE)
