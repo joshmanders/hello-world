@@ -7,6 +7,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     services:
       postgres:
@@ -42,9 +45,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Setup database
+        run: npm run db:push
+
       - name: Run Playwright tests
         id: tests
-        run: npm test
+        run: npx playwright test
         continue-on-error: true
 
       - name: Upload Playwright report
@@ -97,6 +103,8 @@ jobs:
             | **[Screenshot Diffs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.diffs-artifact.outputs.artifact-id }})** | Visual diff images showing changes |
 
             Download and extract the report, then open `index.html` to view interactive screenshot comparisons.
+
+            **To fix snapshot mismatches:** Run `npm run test:update-snapshots` locally.
 
             ---
             *Last updated: ${{ github.event.pull_request.head.sha }}*

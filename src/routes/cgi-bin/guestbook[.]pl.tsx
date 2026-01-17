@@ -44,7 +44,7 @@ const GuestbookPage = () => {
               style={{ background: '#000066', borderStyle: 'ridge' }}
             >
               {page > 1 ? (
-                <Link to="/cgi-bin/guestbook/pl" search={{ page: page - 1 }} className="text-neon-cyan font-bold">
+                <Link to="/cgi-bin/guestbook.pl" search={{ page: page - 1 }} className="text-neon-cyan font-bold">
                   &lt;&lt; Prev
                 </Link>
               ) : (
@@ -54,7 +54,7 @@ const GuestbookPage = () => {
                 Page {page} of {totalPages}
               </span>
               {page < totalPages ? (
-                <Link to="/cgi-bin/guestbook/pl" search={{ page: page + 1 }} className="text-neon-cyan font-bold">
+                <Link to="/cgi-bin/guestbook.pl" search={{ page: page + 1 }} className="text-neon-cyan font-bold">
                   Next &gt;&gt;
                 </Link>
               ) : (
@@ -84,7 +84,7 @@ const GuestbookPage = () => {
   );
 };
 
-export const Route = createFileRoute('/cgi-bin/guestbook/pl')({
+export const Route = createFileRoute('/cgi-bin/guestbook.pl')({
   validateSearch: (search: Record<string, unknown>) => ({
     page: Number(search.page) || 1,
   }),

@@ -141,7 +141,7 @@ const HomePage = () => {
             </em>
           </p>
           <Link
-            to="/cgi-bin/guestbook/pl"
+            to="/cgi-bin/guestbook.pl"
             search={{ page: 1 }}
             className="border-cta-pink-light animate-pulse-scale inline-block cursor-pointer border-[3px] [border-style:outset] bg-[linear-gradient(180deg,var(--color-cta-pink)_0%,var(--color-cta-pink-dark)_50%,var(--color-cta-pink-darker)_100%)] px-7.5 py-3 text-xl font-bold text-white no-underline"
           >

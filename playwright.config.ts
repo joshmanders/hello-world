@@ -5,15 +5,16 @@ const baseURL = `http://localhost:${port}`;
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
+  fullyParallel: false, // Tests share a database, must run serially
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1, // Single worker to ensure DB isolation between test files
   reporter: 'html',
   use: {
     baseURL,
     trace: 'on-first-retry',
   },
+  snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
   projects: [
     {
       name: 'chromium',

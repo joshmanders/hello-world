@@ -13,9 +13,8 @@
     "db:push": "drizzle-kit push",
     "db:reset": "tsx src/db/reset.ts && drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts",
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:update-snapshots": "playwright test --update-snapshots"
+    "test": "docker run --rm --network host -v $(pwd):/work -w /work -it mcr.microsoft.com/playwright:v1.57.0-jammy /bin/bash -c 'npm ci && npx playwright test'",
+    "test:update-snapshots": "docker run --rm --network host -v $(pwd):/work -w /work -it mcr.microsoft.com/playwright:v1.57.0-jammy /bin/bash -c 'npm ci && npx playwright test --update-snapshots'"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.150.0",
